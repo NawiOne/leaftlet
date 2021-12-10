@@ -16,7 +16,10 @@
 /* eslint-disable no-undef, @typescript-eslint/no-unused-vars, no-unused-vars */
 import "./style.css";
 
-import {data} from './data.js'
+import {data} from './data.js';
+import {gawi} from './gawi.js'
+
+
 
 // This example requires the Visualization library. Include the libraries=visualization
 // parameter when you first load the API. For example:
@@ -26,15 +29,17 @@ let map: google.maps.Map, heatmap: google.maps.visualization.HeatmapLayer;
 
 function initMap(): void {
   map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-    zoom: 13,
+    zoom: 14.2,
     center: { lat: -2.9019809, lng: 112.3259529 },
     mapTypeId: "satellite"
   });
 
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
+    data: getPointsTest(),
     map: map
   });
+
+
 
   document
     .getElementById("toggle-heatmap")!
@@ -66,7 +71,8 @@ function changeGradient(): void {
 }
 
 function changeRadius(): void {
-  heatmap.set("radius", heatmap.get("radius") ? null : 15);
+  console.log('tesss')
+  heatmap.set("radius", heatmap.get("radius") ? null : 18);
 }
 
 function changeOpacity(): void {
@@ -87,14 +93,32 @@ function changeOpacity(): void {
 // }
 
 
+
 // mengambil titik awal/akhir
+// function getPoints() {
+//   return [
+//     new google.maps.LatLng(-2.893642, 112.3170515),
+//     new google.maps.LatLng(-2.8963125, 112.3169192),
+//     new google.maps.LatLng(-2.8980188,112.3196067),
+//     new google.maps.LatLng(-2.8990332,112.3195407),
+//     new google.maps.LatLng(-2.8993505,112.3255331),
+//     new google.maps.LatLng(-2.9019533,112.3255119)
+//   ]
+// }
+
+// semua titik ditampilkan
 function getPoints() {
-  return [
-    new google.maps.LatLng(-2.893642, 112.3170515),
-    new google.maps.LatLng(-2.8963125, 112.3169192),
-    new google.maps.LatLng(-2.8980188,112.3196067),
-    new google.maps.LatLng(-2.8990332,112.3195407)
-  ]
+  return data.map(dt => {
+    return new google.maps.LatLng(dt.USER_LAT,dt.USER_LONG)
+   })
+}
+
+
+// data all gawi oct-nov
+function getPointsTest() {
+  return gawi.map(dt => {
+    return new google.maps.LatLng(dt.lat,dt.long)
+   })
 }
 
 
