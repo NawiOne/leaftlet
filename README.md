@@ -6,7 +6,7 @@ https://github.com/googlemaps/js-samples.
 ## Setup
 
 ```sh
-npm i
+npm install --save-dev
 npm start  # development
 npm run build  # production
 ```
